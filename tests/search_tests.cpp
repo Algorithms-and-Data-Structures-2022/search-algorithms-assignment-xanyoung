@@ -16,28 +16,10 @@
 
 using namespace assignment;
 
-constexpr int kMaxDataSize = 20;
+constexpr int kMaxDataSize = 25;
 
-std::unordered_set<int> all_sums(const std::vector<int>& data) {
-
-  int sum = 0;
-  std::unordered_set<int> res;
-
-  for (int index = 0; index < static_cast<int>(data.size()) - 1; ++index) {
-    for (int next = index + 1; next < data.size(); ++next) {
-      sum = data[index] + data[next];
-
-      if (res.count(sum) == 0) {
-        res.insert(sum);
-      }
-    }
-  }
-
-  return res;
-}
-
-TEMPLATE_TEST_CASE("Search", "", LinearSearchIterative, LinearSearchRecursive, LinearSearchTwoPointers,
-                   BinarySearchIterative, BinarySearchRecursive) {
+TEMPLATE_TEST_CASE("Search", "", LinearSearchIterative, LinearSearchRecursive, LinearSearchTwoPointers, BinarySearchIterative,
+                   BinarySearchRecursive) {
 
   const int size = GENERATE(range(0, kMaxDataSize));
   auto data = utils::rand_array(size, -100, 100, true);
@@ -87,7 +69,7 @@ TEST_CASE("TwoPointers::TwoSum") {
   auto data = utils::rand_array(size, -50, 100);
   std::sort(data.begin(), data.end());
 
-  const auto check_set = all_sums(data);
+  const auto check_set = utils::all_sums(data);
 
   SECTION("find an existing sum") {
 
